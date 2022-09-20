@@ -58,4 +58,4 @@ func main() {
 ```
 
 # Sample Output
-![img.png](static/img.png)
+![img.png](example.png)
