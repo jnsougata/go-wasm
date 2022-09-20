@@ -31,6 +31,14 @@ func (d *document) Append(children ...js.Value) {
 	}
 }
 
+func (d *document) StyleSheet(path string) {
+	link := d.inner.Call("createElement", "link")
+	link.Set("rel", "stylesheet")
+	link.Set("href", path)
+	link.Set("type", "text/css")
+	d.Head.Call("appendChild", link)
+}
+
 func (d *document) Styles(style ...Style) {
 	var stl string
 	for _, v := range style {

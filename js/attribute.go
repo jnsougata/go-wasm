@@ -1,24 +1,20 @@
 package js
 
+import "fmt"
+
 type Attribute struct {
 	Name   string
 	Value  string
-	Values []string
+	Values map[string]any
 }
 
 func (attr *Attribute) merge() (string, string) {
 	if attr.Value != "" {
-		attr.Values = append(attr.Values, attr.Value)
-	}
-	if len(attr.Values) == 0 {
-		panic("Attribute values cannot be empty")
-	}
-	if attr.Name == "" {
-		panic("Attribute name cannot be empty")
+		return attr.Name, attr.Value
 	}
 	var value string
-	for _, v := range attr.Values {
-		value += v
+	for k, v := range attr.Values {
+		value += k + ":" + fmt.Sprintf("%v", v) + ";"
 	}
 	return attr.Name, value
 }
