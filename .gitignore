@@ -4,3 +4,5 @@ __pycache__/
 main.py
 requirements.txt
 .detaignore
+static/
+templates/
