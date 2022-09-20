@@ -13,7 +13,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/jnsougata/gowasm/js"
+	"github.com/jnsougata/gowasm/dom"
 )
 
 func main() {

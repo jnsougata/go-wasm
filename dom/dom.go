@@ -1,4 +1,4 @@
-package js
+package dom
 
 import (
 	"fmt"
@@ -25,7 +25,7 @@ func (d *document) fetch() {
 	d.Body = d.inner.Get("body")
 }
 
-func (d *document) Append(children ...js.Value) {
+func (d *document) Append(children ...Value) {
 	for _, c := range children {
 		d.Body.Call("appendChild", c)
 	}
@@ -77,4 +77,9 @@ func (d *document) NewButton(text string) *buttonTag {
 	b := d.inner.Call("createElement", "button")
 	b.Set("innerHTML", text)
 	return &buttonTag{JSValue: b}
+}
+
+func (d *document) NewDiv() *divTag {
+	div := d.inner.Call("createElement", "div")
+	return &divTag{JSValue: div}
 }

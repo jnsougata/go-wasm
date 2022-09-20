@@ -1,4 +1,4 @@
-package js
+package dom
 
 import "fmt"
 
