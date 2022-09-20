@@ -1,3 +1,6 @@
 .deta/
 __pycache__/
 .idea/
+main.py
+requirements.txt
+.detaignore
