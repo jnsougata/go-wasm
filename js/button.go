@@ -6,7 +6,8 @@ type buttonTag struct {
 	JSValue js.Value
 }
 
-func (b *buttonTag) SetAttribute(key, value string) {
+func (b *buttonTag) SetAttribute(attribute Attribute) {
+	key, value := attribute.merge()
 	b.JSValue.Set(key, value)
 }
 

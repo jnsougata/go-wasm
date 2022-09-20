@@ -31,9 +31,14 @@ func (d *document) Append(children ...js.Value) {
 	}
 }
 
-func (d *document) SetStyle(style string) {
+func (d *document) Styles(style ...Style) {
+	var stl string
+	for _, v := range style {
+		key, value := v.merge()
+		stl += fmt.Sprintf("%s {%s}", key, value)
+	}
 	s := d.inner.Call("createElement", "style")
-	s.Set("innerHTML", style)
+	s.Set("innerHTML", stl)
 	d.Head.Call("appendChild", s)
 }
 

@@ -6,6 +6,7 @@ type hTag struct {
 	JSValue js.Value
 }
 
-func (h *hTag) SetAttribute(key, value string) {
+func (h *hTag) SetAttribute(attribute Attribute) {
+	key, value := attribute.merge()
 	h.JSValue.Set(key, value)
 }

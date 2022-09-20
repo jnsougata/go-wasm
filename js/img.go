@@ -12,6 +12,7 @@ type imgTag struct {
 	JSValue js.Value
 }
 
-func (i *imgTag) SetAttribute(key, value string) {
+func (i *imgTag) SetAttribute(attribute Attribute) {
+	key, value := attribute.merge()
 	i.JSValue.Set(key, value)
 }
