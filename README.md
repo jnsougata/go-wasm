@@ -1,6 +1,6 @@
 # go-wasm
 
-#Installation
+# Installation
 ```shell
 go get github.com/jnsougata/go-wasm
 ```
