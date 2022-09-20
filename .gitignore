@@ -6,3 +6,4 @@ requirements.txt
 .detaignore
 static/
 templates/
+main.go
