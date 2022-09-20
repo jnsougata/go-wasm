@@ -1,9 +1,7 @@
 package dom
 
-import "syscall/js"
-
 type divTag struct {
-	JSValue js.Value
+	JSValue Value
 }
 
 func (d *divTag) Attributes(attributes ...Attribute) {
@@ -11,6 +9,10 @@ func (d *divTag) Attributes(attributes ...Attribute) {
 		key, value := attr.merge()
 		d.JSValue.Set(key, value)
 	}
+}
+
+func (d *divTag) Style() {
+
 }
 
 func (d *divTag) Append(children ...Value) {
