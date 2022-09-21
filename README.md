@@ -11,6 +11,7 @@ go get github.com/jnsougata/go-wasm
 package main
 
 import (
+	"fmt"
 	"github.com/jnsougata/gowasm/bridge"
 )
 
@@ -28,7 +29,7 @@ func main() {
 				"border-radius":    "5px",
 				"border":           "none",
 				"cursor":           "pointer",
-				"margin":           "10px",
+				"margin":           "20px",
 			},
 		})
 	img := document.CreateElement("img")
@@ -37,15 +38,21 @@ func main() {
 	img.Set("height", "200")
 	button := document.CreateElement("button")
 	button.Set("innerHTML", "Click Me!")
+	val := 0
 	button.OnClick(func(this bridge.Arg, args []bridge.Arg) interface{} {
-		img.Set("src", "../static/img.png")
+		val++
+		tag := document.GetElementById("count")
+		tag.Set("innerHTML", fmt.Sprintf("Clicked x%d", val))
 		return nil
 	})
+	h3 := document.CreateElement("h3")
+	h3.Set("innerHTML", "Clicked x0")
+	h3.Set("id", "count")
 	div := document.CreateElement("div")
 	div.Set("id", "container")
-	div.Set("className", "abc")
 	div.Call("appendChild", button)
 	document.Body.AppendChild(img)
+	document.Body.AppendChild(h3)
 	document.Body.AppendChild(div)
 	<-ch
 }

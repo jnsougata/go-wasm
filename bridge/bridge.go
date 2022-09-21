@@ -67,15 +67,15 @@ type Bridge struct {
 	Head *Head
 }
 
-func (d *Bridge) StyleSheet(path string) {
-	link := d.CreateElement("link")
+func (b *Bridge) StyleSheet(path string) {
+	link := b.CreateElement("link")
 	link.Set("rel", "stylesheet")
 	link.Set("href", path)
 	link.Set("type", "text/css")
-	d.Head.root.Call("appendChild", link.root)
+	b.Head.root.Call("appendChild", link.root)
 }
 
-func (d *Bridge) CSSClasses(classes ...Class) {
+func (b *Bridge) CSSClasses(classes ...Class) {
 	var styleString string
 	for _, class := range classes {
 		if class.Name != "" {
@@ -86,12 +86,17 @@ func (d *Bridge) CSSClasses(classes ...Class) {
 			styleString += fmt.Sprintf(" %s {%s} ", class.Name, attrs)
 		}
 	}
-	tag := d.CreateElement("style")
+	tag := b.CreateElement("style")
 	tag.Set("innerHTML", styleString)
-	d.Head.AppendChild(tag)
+	b.Head.AppendChild(tag)
 }
 
-func (d *Bridge) CreateElement(name string) *DomObject {
-	i := d.root.Call("createElement", name)
+func (b *Bridge) CreateElement(name string) *DomObject {
+	i := b.root.Call("createElement", name)
+	return &DomObject{i}
+}
+
+func (b *Bridge) GetElementById(id string) *DomObject {
+	i := b.root.Call("getElementById", id)
 	return &DomObject{i}
 }
