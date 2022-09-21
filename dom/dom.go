@@ -7,6 +7,8 @@ import (
 
 type Value = js.Value
 
+var JS = js.Global()
+
 func New() *document {
 	d := &document{}
 	d.fetch()
@@ -82,4 +84,13 @@ func (d *document) NewButton(text string) *buttonTag {
 func (d *document) NewDiv() *divTag {
 	div := d.inner.Call("createElement", "div")
 	return &divTag{JSValue: div}
+}
+
+func (d *document) NewInput(name, placeholder, id string) *inputTag {
+	input := d.inner.Call("createElement", "input")
+	input.Set("type", "text")
+	input.Set("placeholder", placeholder)
+	input.Set("id", id)
+	input.Set("name", name)
+	return &inputTag{JSValue: input}
 }

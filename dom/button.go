@@ -13,6 +13,6 @@ func (b *buttonTag) Attributes(attributes ...Attribute) {
 	}
 }
 
-func (b *buttonTag) OnCLick(f func(this Value, args []Value) interface{}) {
+func (b *buttonTag) OnClick(f func(this Value, args []Value) interface{}) {
 	b.JSValue.Set("onclick", js.FuncOf(f))
 }
