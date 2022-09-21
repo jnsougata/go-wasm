@@ -11,37 +11,42 @@ go get github.com/jnsougata/go-wasm
 package main
 
 import (
-	"fmt"
-
-	"github.com/jnsougata/gowasm/dom"
+	"github.com/jnsougata/gowasm/bridge"
 )
 
 func main() {
 	ch := make(chan struct{}, 0)
-	count := 0
-	document := js.New()
+	document := bridge.New()
 	document.StyleSheet("../static/style.css")
-	img := document.NewImg(&js.Image{Height: 200, Width: 200, Src: "../static/wasm.png"})
-	htag := document.NewHTag("Hello, WebAssembly!", 3)
-	htag.SetAttribute(js.Attribute{Name: "style", Values: map[string]interface{}{"color": "white"}})
-	button := document.NewButton("Click Me!")
-	button.SetAttribute(
-		js.Attribute{
-			Name: "style",
-			Values: map[string]interface{}{
+	document.CSSClasses(
+		bridge.Class{
+			Name: "button",
+			Attributes: map[string]string{
 				"background-color": "#fff",
 				"color":            "#7c4dff",
 				"padding":          "10px 20px",
 				"border-radius":    "5px",
 				"border":           "none",
+				"cursor":           "pointer",
+				"margin":           "10px",
 			},
 		})
-	button.OnCLick(func(this js.Value, args []js.Value) interface{} {
-		count++
-		htag.SetAttribute(js.Attribute{Name: "innerHTML", Value: fmt.Sprintf("Clicked x%d", count)})
+	img := document.CreateElement("img")
+	img.Set("src", "../static/wasm.png")
+	img.Set("width", "200")
+	img.Set("height", "200")
+	button := document.CreateElement("button")
+	button.Set("innerHTML", "Click Me!")
+	button.OnClick(func(this bridge.Arg, args []bridge.Arg) interface{} {
+		img.Set("src", "../static/img.png")
 		return nil
 	})
-	document.Append(img.JSValue, htag.JSValue, button.JSValue)
+	div := document.CreateElement("div")
+	div.Set("id", "container")
+	div.Set("className", "abc")
+	div.Call("appendChild", button)
+	document.Body.AppendChild(img)
+	document.Body.AppendChild(div)
 	<-ch
 }
 
